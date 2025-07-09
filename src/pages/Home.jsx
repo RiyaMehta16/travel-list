@@ -1,11 +1,14 @@
-import { useState } from "react";
-import Logo from "./Logo";
-import Form from "./Form";
-import PackingList from "./PackingList";
-import Stats from "./Stats";
-
-export default function App() {
+import { useState, useEffect } from "react";
+import Logo from "../components/Logo";
+import Form from "../components/Form";
+import PackingList from "../components/PackingList";
+import Stats from "../components/Stats";
+import fetchList from "../api/fetchList";
+export default function Home() {
   const [items, setItems] = useState([]);
+  useEffect(() => {
+    fetchList();
+  }, []);
 
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
