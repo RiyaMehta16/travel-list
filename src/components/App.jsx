@@ -1,10 +1,8 @@
-import React from "react";
-import Home from "../pages/Home";
-
+import AllRoutes from "./AllRoutes";
 const App = () => {
   return (
     <div>
-      <Home />
+      <AllRoutes />
     </div>
   );
 };

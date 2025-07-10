@@ -4,6 +4,8 @@ import Form from "../components/Form";
 import PackingList from "../components/PackingList";
 import Stats from "../components/Stats";
 import fetchList from "../api/fetchList";
+import LogoutButton from "../components/LogoutButton";
+
 export default function Home() {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function Home() {
 
   return (
     <div className="app">
-      <Logo />
+      <Logo name="🏝️ FAR AWAY 🏝️" />
       <Form onAddItems={handleAddItems} />
       <PackingList
         items={items}
@@ -44,6 +46,7 @@ export default function Home() {
         onClearList={handleClearList}
       />
       <Stats items={items} />
+      <LogoutButton />
     </div>
   );
 }

@@ -1,24 +1,24 @@
 import React from "react";
 import { useState } from "react";
-import registerUser from "../../api/registerUser";
-const RegisterForm = () => {
+import signInUser from "../../api/signInUser";
+import AuthButton from "../AuthButton";
+import { useNavigate } from "react-router-dom";
+const SignInForm = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       alert("All field must be filled!");
       return;
     }
-    if (password !== confirmPassword) {
-      alert("Both the passwords must match");
-      return;
-    }
-    registerUser(email, password);
+
+    await signInUser(email, password, navigate);
+    // navigate("/");
   };
   return (
-    <form className="register-form form" onSubmit={handleSubmit}>
+    <form className="signin-form form" onSubmit={handleSubmit}>
       <h4>Register with your Email here and use our services!</h4>
       <div className="form-container">
         <label>Email:</label>
@@ -37,20 +37,13 @@ const RegisterForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <label>Confirm Password:</label>
-        <input
-          type="password"
-          placeholder="******"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+
         <button className="" type="submit">
-          Register
+          Sign In
         </button>
       </div>
     </form>
   );
 };
 
-export default RegisterForm;
+export default SignInForm;
