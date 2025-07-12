@@ -1,6 +1,8 @@
 # Getting Started with Create React App
 
+
 ## SUPABASE SETUP
+
 
 - installation:
 
@@ -19,6 +21,7 @@ const supabase = createClient(
   "public-anon-key"
 );
 ```
+
 
 ### AUTHENTICATION
 
@@ -61,3 +64,4 @@ export default registerUser;
   ```
 
   - Create a variable that tracks the session
+
