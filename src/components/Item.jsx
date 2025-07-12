@@ -3,13 +3,20 @@ export default function Item({ item, onDeleteItem, onToggleItem }) {
     <li>
       <input
         type="checkbox"
-        value={item.packed}
+        value={item.done}
+        checked={item.done}
         onChange={() => {
-          onToggleItem(item.id);
+          onToggleItem(item);
         }}
       />
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity} {item.description}
+      <span
+        style={
+          item.done
+            ? { textDecoration: "line-through" }
+            : { textDecoration: "none" }
+        }
+      >
+        {item.list_item}
       </span>
       <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>

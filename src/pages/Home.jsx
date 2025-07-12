@@ -5,28 +5,40 @@ import PackingList from "../components/PackingList";
 import Stats from "../components/Stats";
 import fetchList from "../api/fetchList";
 import LogoutButton from "../components/LogoutButton";
-
+import insertToList from "../api/insertToList";
+import updateTodoDone from "../api/updateTodoDone";
 export default function Home() {
   const [items, setItems] = useState([]);
+
+  // Fetch todo list from Supabase on mount
+  const fetchItems = async () => {
+    const data = await fetchList();
+    setItems(data || []); // Fallback to empty array if null
+  };
+
   useEffect(() => {
-    fetchList();
+    fetchItems();
   }, []);
 
-  function handleAddItems(item) {
-    setItems((items) => [...items, item]);
-  }
+  const handleAddItems = async (item) => {
+    console.log("item", item);
+    await insertToList(item);
+    await fetchItems();
+  };
 
   function handleDeleteItem(id) {
     setItems((items) => items.filter((item) => item.id !== id));
   }
 
-  function handleToggleItem(id) {
-    setItems((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, packed: !item.packed } : item
-      )
-    );
-  }
+  const handleToggleItem = async (item) => {
+    // setItems((items) =>
+    //   items.map((item) =>
+    //     item.id === id ? { ...item, packed: !item.packed } : item
+    //   )
+    // );
+    await updateTodoDone(item);
+    await fetchItems();
+  };
 
   function handleClearList() {
     const confirmed = window.confirm(
