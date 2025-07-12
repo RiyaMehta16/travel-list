@@ -9,7 +9,7 @@ export default function Form({ onAddItems }) {
 
     if (!description) return;
 
-    const newItem = { description, quantity, id: Date.now(), packed: false };
+    const newItem = { description, quantity, done: false };
 
     onAddItems(newItem);
 
