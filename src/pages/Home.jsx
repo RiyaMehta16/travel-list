@@ -7,6 +7,8 @@ import fetchList from "../api/fetchList";
 import LogoutButton from "../components/LogoutButton";
 import insertToList from "../api/insertToList";
 import updateTodoDone from "../api/updateTodoDone";
+import deleteUserTodos from "../api/deleteAllUserTodos";
+import deleteSingleTodo from "../api/deleteSingleTodo";
 export default function Home() {
   const [items, setItems] = useState([]);
 
@@ -26,26 +28,23 @@ export default function Home() {
     await fetchItems();
   };
 
-  function handleDeleteItem(id) {
+  const handleDeleteItem = async (id) => {
     setItems((items) => items.filter((item) => item.id !== id));
-  }
+    await deleteSingleTodo(id);
+  };
 
   const handleToggleItem = async (item) => {
-    // setItems((items) =>
-    //   items.map((item) =>
-    //     item.id === id ? { ...item, packed: !item.packed } : item
-    //   )
-    // );
     await updateTodoDone(item);
     await fetchItems();
   };
 
-  function handleClearList() {
+  const handleClearList = async () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete the list?"
     );
     if (confirmed) setItems([]);
-  }
+    await deleteUserTodos();
+  };
 
   return (
     <div className="app">
